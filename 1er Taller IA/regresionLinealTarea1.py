@@ -5,6 +5,7 @@ from sklearn.model_selection import train_test_split  # Para dividir los datos e
 from sklearn.preprocessing import StandardScaler  # Para la normalización de los datos
 import matplotlib.pyplot as plt  # Para la visualización de datos
 from ipywidgets import interact, FloatSlider  # Para crear interfaces interactivas en Jupyter notebooks
+#%matplotlib inline
 
 # Cargar los datos desde un archivo Excel
 data = pd.read_excel('Real estate valuation data set.xlsx')
