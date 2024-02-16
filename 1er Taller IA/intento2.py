@@ -17,7 +17,7 @@ caracteristicas = ['X2 house age', 'X3 distance to the nearest MRT station', 'X4
 X = datosExcel[caracteristicas].values
 Y = datosExcel['Y house price of unit area'].values.reshape(-1, 1)
 
-# Crear una figura y una matriz de subgráficos con 2 filas y 3 columnas
+# Crear una figura y una matriz de subgráficos con 2 filas y 3 columnas.
 fig, axes = plt.subplots(nrows=2, ncols=3, figsize=(15, 10))
 
 # Títulos personalizados para cada gráfico
