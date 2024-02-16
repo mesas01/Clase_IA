@@ -20,7 +20,7 @@ Y = datosExcel['Y house price of unit area'].values.reshape(-1, 1)
 # Crear una figura y una matriz de subgráficos con 2 filas y 3 columnas.
 fig, axes = plt.subplots(nrows=2, ncols=3, figsize=(15, 10))
 
-# Títulos personalizados para cada gráfico
+# Títulos personalizados para cada gráfico.
 nombres_caracteristicas = ['Edad de la casa', 'Distancia a la estación MRT más cercana', 'Número de tiendas de conveniencia', 'Latitud', 'Longitud', 'Distribución de Precios']
 
 # Llenar cada subgráfico con un gráfico de dispersión para cada característica
