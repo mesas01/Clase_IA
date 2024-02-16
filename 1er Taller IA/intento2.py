@@ -9,18 +9,58 @@ from ipywidgets import interact, FloatSlider  # Para crear interfaces interactiv
 # Cargar los datos desde un archivo Excel
 datosExcel = pd.read_excel('Real estate valuation data set.xlsx')
 
+# observamos una fraccion de ellos
+datosExcel.head(5)
+
 # Seleccionar las características y la variables de las casas
 caracteristicas = ['X2 house age', 'X3 distance to the nearest MRT station', 'X4 number of convenience stores', 'X5 latitude', 'X6 longitude']
 X = datosExcel[caracteristicas].values
 Y = datosExcel['Y house price of unit area'].values.reshape(-1, 1)
 
+# Crear una figura y una matriz de subgráficos con 2 filas y 3 columnas
+fig, axes = plt.subplots(nrows=2, ncols=3, figsize=(15, 10))
+
+# Títulos personalizados para cada gráfico
+nombres_caracteristicas = ['Edad de la casa', 'Distancia a la estación MRT más cercana', 'Número de tiendas de conveniencia', 'Latitud', 'Longitud', 'Distribución de Precios']
+
+# Llenar cada subgráfico con un gráfico de dispersión para cada característica
+for i, ax in enumerate(axes.flat):
+    if i < 5:  # Para las primeras 5 características
+        ax.scatter(datosExcel[caracteristicas[i]], datosExcel['Y house price of unit area'], alpha=0.4, edgecolor='none')
+        ax.set_xlabel(caracteristicas[i])
+        ax.set_ylabel('Precio [dolares/$m^2$]')
+    else:  # Para el sexto gráfico, mostramos la distribución de precios
+        ax.hist(datosExcel['Y house price of unit area'], bins=20, color='skyblue', edgecolor='black')
+        ax.set_xlabel('Precio [dolares/$m^2$]')
+        ax.set_ylabel('Frecuencia')
+    ax.set_title(nombres_caracteristicas[i])
+    ax.grid(visible=True, alpha=0.2)
+
+plt.tight_layout()
+plt.show()
+
 # funcion que Divide los datos en conjuntos de entrenamiento y prueba, y normaliza las características.
 def dividir_y_normalizar_datos(X, Y):
 
+    # Dividir los datos en conjuntos de entrenamiento y prueba
+    # test_size=0.2 indica que el 20% de los datos se utilizará como conjunto de prueba
+    # random_state asegura que la división sea reproducible
     X_entrenamiento, X_prueba, Y_entrenamiento, Y_prueba = train_test_split(X, Y, test_size=0.2, random_state=42)
+
+    # Inicializar el objeto StandardScaler
     escalador_X = StandardScaler()
+
+    # Ajustar el escalador solo a los datos de entrenamiento y transformarlos
+    # Esto calcula la media y desviación estándar de cada característica en el conjunto de entrenamiento
+    # y luego utiliza estos valores para escalar el conjunto de entrenamiento
     X_entrenamiento_escalado = escalador_X.fit_transform(X_entrenamiento)
+
+    # Transformar los datos de prueba utilizando la misma transformación aplicada a los datos de entrenamiento
+    # Es importante no ajustar el escalador con los datos de prueba para evitar el sesgo
     X_prueba_escalado = escalador_X.transform(X_prueba)
+
+    # Añadir una columna de unos al inicio de las matrices escaladas para el término de sesgo (intercepto)
+
     X_entrenamiento_escalado = np.hstack([np.ones((X_entrenamiento_escalado.shape[0], 1)), X_entrenamiento_escalado])
     X_prueba_escalado = np.hstack([np.ones((X_prueba_escalado.shape[0], 1)), X_prueba_escalado])
     return X_entrenamiento_escalado, X_prueba_escalado, Y_entrenamiento, Y_prueba
