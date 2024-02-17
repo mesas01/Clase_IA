@@ -137,7 +137,7 @@ def entrenar_y_evaluar_modelo(tasa_aprendizaje=0.01, iteraciones=1000):
     costo_prueba = calcular_costo(X_prueba_escalado, Y_prueba, theta)
     print("Costo en el conjunto de prueba:", costo_prueba)
 
-    # Calcular el MSE en el conjunto de prueba como una métrica de rendimiento
+    # Calcular el MSE en el conjunto de prueba como una métrica de rendimiento.
     mse_prueba = np.mean((calcular_hipotesis(X_prueba_escalado, theta) - Y_prueba) ** 2)
     print("MSE en el conjunto de prueba:", mse_prueba)
 

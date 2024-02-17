@@ -152,7 +152,7 @@ def entrenar_y_evaluar_modelo(tasa_aprendizaje=0.01, iteraciones=1000):
     plt.ylabel('Valores Predichos de Y')
     plt.title('Comparación de Valores Observados vs. Predichos')
     plt.grid(True, which='both', linestyle='--', linewidth=0.5)
-    plt.axline([0, 0], [1, 1], color='red', lw=2)  # Línea de referencia para un ajuste perfecto
+    plt.axline([0, 0], [1, 1], color='red', lw=2)  # Línea de referencia para un ajuste perfecto.
     plt.show()
 
 
